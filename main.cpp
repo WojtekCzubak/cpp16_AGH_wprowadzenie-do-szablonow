@@ -6,7 +6,7 @@ using namespace std;
 class IntBox // pudelko na liczby calkowite
 {
 public:
-    //explicit IntBox(int value) { value_ = value; } //SPROBUJ USTALIC CO TO JEST TO EXPLICIT
+   // explicit IntBox(int value) { value_ = value; } //SPROBUJ USTALIC CO TO JEST TO EXPLICIT
     IntBox(int value) { value_ = value; }
     int getValue() const { return value_; }
     void setValue(int value) { this->value_ = value; }
@@ -34,6 +34,45 @@ private:
     string value_;
 };
 
+
+
+template <typename T> // do definiowania szablonow klas lub szablonow funkcji // w <> jest to co wyrozniamy czyli taka dziura
+                        // T to taki parametr typu lub cokolwiek co bedzie zastapione w kompilacji innym typem
+                        //parametrem szablonu moze tez byc liczba calkowita
+
+class Box
+{
+public:
+   // explicit IntBox(int value) { value_ = value; } //SPROBUJ USTALIC CO TO JEST TO EXPLICIT
+    Box(T value) { value_ = value; }
+    T getValue() const { return value_; }
+    void setValue(T value) { this->value_ = value; }
+private:
+    T value_;
+};
+
+//template <typename T>
+//T Box<T>::getValue() const {
+//    return value_;
+//}
+//template <typename T>
+//void setValue(T value) { this->value_ = value; }
+
+void swapInts (int &lhs, int &rhs)
+{
+    int tmp = lhs;
+    lhs = rhs;
+    rhs = tmp;
+}
+
+template <typename Y>
+void mySwapInts (Y &lhs, Y &rhs)
+{
+    Y tmp = lhs;
+    lhs = rhs;
+    rhs = tmp;
+}
+
 void demo2()
 {
     cout << "demo2()" << endl;
@@ -41,6 +80,12 @@ void demo2()
     cout << "the value in ib1 = " << ib1.getValue() << endl;
     ib1.setValue(2);
     cout << "now the value in ib1 = " << ib1.getValue() << endl;
+    cout << endl;
+
+    Box<int> b1{1}; //juz dziala :)
+    cout << "the value in ib1 = " << b1.getValue() << endl;
+    b1.setValue(2);
+    cout << "now the value in ib1 = " << b1.getValue() << endl;
     cout << endl;
 
     DoubleBox db1{2.71};
@@ -54,6 +99,11 @@ void demo2()
     sb1.setValue("Ola");
     cout << "now the value in sb1 = " << sb1.getValue() << endl;
     cout << endl;
+
+    int x = 1, y= 5;
+    cout << "niezamienione" << x << " " << y <<endl;
+    mySwapInts<int> (x,y);
+    cout << "zamienione"<< x <<" " << y <<endl;
 }
 
 int main()
